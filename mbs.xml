@@ -1,5 +1,6 @@
 <project xmlns:ivy="antlib:org.apache.ivy.ant" name="muhkuh_build_system" default="all">
 	<property name="version.required" value="1.9.1" />
+	<dirname property="mbs.test.root" file="${ant.file}" />
 
 	<target name="version_check">
 		<antversion property="version.running" />
