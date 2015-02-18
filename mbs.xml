@@ -1,7 +1,6 @@
 <project xmlns:ivy="antlib:org.apache.ivy.ant" name="muhkuh_build_system" default="all">
 	<property name="version.required" value="1.9.1" />
 
-
 	<target name="version_check">
 		<antversion property="version.running" />
 		<fail message="FATAL ERROR:  The running Ant version, ${version.running}, is too old.">
@@ -24,9 +23,9 @@
 
 	<!-- Download all required artifacts to the local 'lib' folder. -->
 	<target name="collect" description="Collect all dependencies in the lib subfolder.">
-		<ivy:settings id="ivy.muhkuh.settings" file="../ivysettings.xml" />
-		<ivy:retrieve settingsRef="ivy.muhkuh.settings" pattern="lib/[orgPath]/[artifact]-[revision]" sync="true" />
-		<ivy:artifactproperty name="path.[organisation].[artifact]" value="lib/[orgPath]/[artifact]-[revision]" />
+		<ivy:settings id="ivy.muhkuh.settings" file="${mbs.settings.path}/ivysettings.xml" />
+		<ivy:retrieve settingsRef="ivy.muhkuh.settings" pattern="${mbs.settings.path}/lib/[orgPath]/[artifact]-[revision]" sync="true" />
+		<ivy:artifactproperty name="path.[organisation].[artifact]" value="${mbs.settings.path}/lib/[orgPath]/[artifact]-[revision]" />
 		<ivy:report todir="${install.base}/.ivy" graph="false" xslfile="${mbs.ivy.path}/ivy-report.xsl" />
 	</target>
 
@@ -50,7 +49,7 @@
 		</propertyset>
 		
 		<ivy:buildlist reference="muhkuh-build-path">
-			<fileset dir="lib" includes="**/install.xml"/>
+			<fileset dir="${mbs.settings.path}/lib" includes="**/install.xml"/>
 		</ivy:buildlist>
 		
 		<subant target="install" buildpathref="muhkuh-build-path" inheritAll="true" inheritRefs="true" />
