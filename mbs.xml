@@ -14,11 +14,15 @@
 	</target>
 
 
-	<!-- TODO: only download the file if it does not exist yet. -->
+
+	<target name="bootstrap_check_ivy" description="Check if Ivy is already installed.">
+		<available file="${user.home}/.ant/lib/ivy-2.4.0.jar" property="bootstrap.check.ivy.present"/>
+	</target>
+	
 	<!-- TODO: restart ANT after the download somehow? -->
-	<target name="bootstrap" description="Install the ivy JAR.">
+	<target name="bootstrap" description="Install Ivy." depends="bootstrap_check_ivy" unless="bootstrap.check.ivy.present">
 		<mkdir dir="${user.home}/.ant/lib"/>
-		<get dest="${user.home}/.ant/lib/ivy.jar" src="http://search.maven.org/remotecontent?filepath=org/apache/ivy/ivy/2.4.0/ivy-2.4.0.jar"/>
+		<get dest="${user.home}/.ant/lib/ivy-2.4.0.jar" src="http://search.maven.org/remotecontent?filepath=org/apache/ivy/ivy/2.4.0/ivy-2.4.0.jar"/>
 	</target>
 
 
